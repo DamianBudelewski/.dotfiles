@@ -1,0 +1,11 @@
+# Application specific files
+npm-debug.log
+venv
+node_modules
+.sass-cache
+
+# Mac
+.DS_Store
+Desktop.ini
+._*
+Thumbs.db

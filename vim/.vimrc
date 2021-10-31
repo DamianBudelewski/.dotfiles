@@ -7,6 +7,9 @@ call plug#begin('~/.vim/plugged')
 " Multiple language packs for Vim
 Plug 'sheerun/vim-polyglot'
 
+" Completion helper for Cloud Formation Templates, basic syntax highlighting 
+Plug 'https://github.com/m-kat/aws-vim'
+
 " Fern
 Plug 'lambdalisue/fern.vim'
 
