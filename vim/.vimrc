@@ -12,6 +12,12 @@ Plug 'https://github.com/m-kat/aws-vim'
 
 " Fern
 Plug 'lambdalisue/fern.vim'
+Plug 'yuki-yano/fern-preview.vim'
+
+Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
+
+" Mappings to easily delete, change and add such surroundings in pairs
+Plug 'tpope/vim-surround'
 
 " Terraform syntax and tools
 Plug 'hashivim/vim-terraform'
@@ -47,6 +53,10 @@ call plug#end()
 
 let mapleader=" "
 let maplocalleader=" "
+
+colorscheme aquarium
+let g:aquarium_style="dark"
+
 
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
@@ -114,4 +124,21 @@ hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
 hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
 hi SpellCap cterm=underline ctermfg=203 guifg=#ff5f5f
 
+
+" -----------------------------------------------------------------------------
+" Fern Settings
+" -----------------------------------------------------------------------------
+
 noremap <silent> <Leader>f :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
+
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END

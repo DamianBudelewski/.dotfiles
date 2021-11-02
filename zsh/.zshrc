@@ -114,8 +114,6 @@ alias k=kubectl
 alias d=docker
 alias s=ssh
 alias d='docker'
-alias gc='git commit -m'
-alias gs='git status'
 
 # blank aliases
 typeset -a baliases

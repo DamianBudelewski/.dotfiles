@@ -23,3 +23,9 @@ brew "yamllint"
 brew "yarn"
 brew "vim"
 brew "cfn-lint"
+brew "coreutils"
+brew cmake
+brew python
+brew mono
+brew go
+brew nodejs
