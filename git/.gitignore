@@ -3,6 +3,7 @@ npm-debug.log
 venv
 node_modules
 .sass-cache
+.vscode
 
 # Mac
 .DS_Store

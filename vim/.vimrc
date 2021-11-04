@@ -14,7 +14,10 @@ Plug 'https://github.com/m-kat/aws-vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'yuki-yano/fern-preview.vim'
 
+" Themes
 Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
+Plug 'morhetz/gruvbox'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " Mappings to easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-surround'
@@ -54,10 +57,6 @@ call plug#end()
 let mapleader=" "
 let maplocalleader=" "
 
-colorscheme aquarium
-let g:aquarium_style="dark"
-
-
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
@@ -88,6 +87,22 @@ set showmatch
 map <leader><space> :let @/=''<cr> " clear search
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
+
+
+" -----------------------------------------------------------------------------
+" Theme settings
+" -----------------------------------------------------------------------------
+
+set background=dark
+colorscheme palenight
+let g:airline_theme = "palenight"
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+let g:palenight_terminal_italics=1
+
 
 " -----------------------------------------------------------------------------
 " Color settings
