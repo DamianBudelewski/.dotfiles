@@ -29,3 +29,5 @@ brew python
 brew mono
 brew go
 brew nodejs
+brew act
+brew warrensbox/tap/tfswitch

@@ -194,3 +194,4 @@ export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 autoload -U +X bashcompinit && bashcompinit
 source ~/.azure/az.completion
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
