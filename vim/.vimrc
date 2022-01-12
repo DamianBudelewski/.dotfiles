@@ -7,6 +7,9 @@ call plug#begin('~/.vim/plugged')
 " Multiple language packs for Vim
 Plug 'sheerun/vim-polyglot'
 
+" Send python code to interpreter in tmux
+Plug 'jpalardy/vim-slime'
+
 " Completion helper for Cloud Formation Templates, basic syntax highlighting 
 Plug 'https://github.com/m-kat/aws-vim'
 
@@ -14,7 +17,12 @@ Plug 'https://github.com/m-kat/aws-vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'yuki-yano/fern-preview.vim'
 
+" Fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " Themes
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
 Plug 'morhetz/gruvbox'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -96,15 +104,19 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 " Theme settings
 " -----------------------------------------------------------------------------
 
-set background=dark
-colorscheme palenight
-let g:airline_theme = "palenight"
+set t_Co=256
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
+
+" set background=dark
+" colorscheme palenight
+" let g:airline_theme = "palenight"
+" let g:palenight_terminal_italics=1
 
 if (has("termguicolors"))
   set termguicolors
 endif
 
-let g:palenight_terminal_italics=1
 
 
 " -----------------------------------------------------------------------------
@@ -202,3 +214,31 @@ augroup FernGroup
 augroup END
 
 
+" -----------------------------------------------------------------------------
+" Fzf Settings
+" -----------------------------------------------------------------------------
+
+nnoremap <C-p> :GFiles<CR>
+
+" -----------------------------------------------------------------------------
+" Fast scrolling with CTRL j and CTRL k
+" -----------------------------------------------------------------------------
+
+nnoremap <C-k> <C-u>
+nnoremap <C-j> <C-d>
+
+" -----------------------------------------------------------------------------
+" https://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
+" -----------------------------------------------------------------------------
+vnoremap p "_dP
+
+" Press * to search for the term under the cursor or a visual selection and
+" then press a key below to replace all instances of it in the current file.
+nnoremap <Leader>r :%s///g<Left><Left>
+
+" -----------------------------------------------------------------------------
+" Python send code to interpreter
+" -----------------------------------------------------------------------------
+
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}
