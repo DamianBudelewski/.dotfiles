@@ -2,6 +2,7 @@
 	name = Damian Budelewski
 	email = damian.budelewski@gmail.com
 [core]
+	editor = vim
 	excludesfile = /Users/damian/.gitignore
 [init]
 	defaultBranch = main
