@@ -1,4 +1,3 @@
 # .dotfiles
 
-
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[How to](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/)
