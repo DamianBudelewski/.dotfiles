@@ -11,6 +11,12 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/damian/.oh-my-zsh"
 
+# Add bin commands
+export PATH=$PATH":$HOME/bin"
+
+# Default editor
+export EDITOR=/usr/bin/vim
+
 
 eval "$(zoxide init zsh)"
 
@@ -80,7 +86,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker zsh-autosuggestions kubectl)
+plugins=(git docker zsh-autosuggestions globalias fast-syntax-highlighting terraform)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,41 +116,21 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias k=kubectl
 alias d=docker
-alias s=ssh
-alias d='docker'
+alias gs='git status -s'
+alias v="vim"
+alias p=python3
+alias t=terraform
+alias ta="terraform apply"
+alias td="terraform destroy"
+alias tp="terraform plan"
+alias pok="python3 ok -q control -u --local"
 
-# blank aliases
-typeset -a baliases
-baliases=()
-balias() {
-  alias $@
-  args="$@"
-  args=${args%%\=*}
-  baliases+=(${args##* })
-}
+GLOBALIAS_FILTER_VALUES=(grep l ls)
 
-# ignored aliases
-alias -g L='| less'
-alias -g G='| grep'
-
-expand-alias-space() {
-  [[ $LBUFFER =~ "\<(${(j:|:)baliases})\$" ]]; insertBlank=$?
-  if [[ ! $LBUFFER =~ "ls" && ! $LBUFFER =~ "l" && ! $LBUFFER =~ "grep" && ! $LBUFFER =~ "curl" ]]; then
-    zle _expand_alias
-  fi
-  zle self-insert
-  if [[ "$insertBlank" = "0" ]]; then
-    zle backward-delete-char
-  fi
-}
-
-zle -N expand-alias-space
-
-bindkey " " expand-alias-space
-bindkey -M isearch " " magic-space
 bindkey '^ ' forward-word
+
+bindkey '^f' fzf-file-widget
 
 # pyenv
 export PATH="$HOME/.pyenv/bin:$PATH"
@@ -152,44 +138,34 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+# vim fzf
+fzfvim() {
+  if git rev-parse --is-inside-work-tree &> /dev/null; then
+    </dev/tty vim -c :GFiles
+  else
+    </dev/tty vim -c :Files
+  fi
+}
+zle -N fzfvim
+bindkey "^[fzfvim" fzfvim
+
 export PATH=/opt/homebrew/bin:$PATH
 autoload bashcompinit && bashcompinit
 complete -C '/opt/homebrew/bin/aws_completer' aws
-
-source <(kubectl completion zsh)
-
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/damian/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/damian/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/damian/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/damian/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+# complete -o nospace -C /opt/homebrew/bin/terraform terraform
+complete -o nospace -C /usr/local/bin/terraform terraform
 
 eval "$(direnv hook zsh)"
 export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
 
 autoload -U +X bashcompinit && bashcompinit
 source ~/.azure/az.completion
