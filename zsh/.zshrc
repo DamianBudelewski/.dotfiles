@@ -124,6 +124,7 @@ alias t=terraform
 alias ta="terraform apply"
 alias td="terraform destroy"
 alias tp="terraform plan"
+alias ti="terraform init"
 alias pok="python3 ok -q control -u --local"
 
 GLOBALIAS_FILTER_VALUES=(grep l ls)
