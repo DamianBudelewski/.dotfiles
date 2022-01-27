@@ -105,8 +105,10 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 " -----------------------------------------------------------------------------
 
 set t_Co=256
-colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
+" colorscheme onehalfdark
+" let g:airline_theme='onehalfdark'
+colorscheme onehalflight
+let g:airline_theme='onehalflight'
 
 " set background=dark
 " colorscheme palenight
@@ -117,7 +119,23 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-
+" Customize fzf colors to match your color scheme
+    " Customize fzf colors to match your color scheme                                          
+    " - fzf#wrap translates this to a set of `--color` options                                 
+let g:fzf_colors =                                                                         
+\ { 'fg':      ['fg', 'Normal'],                                                           
+  \ 'bg':      ['bg', 'Normal'],                                                           
+  \ 'hl':      ['fg', 'Comment'],                                                          
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],                             
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],                                       
+  \ 'hl+':     ['fg', 'Statement'],                                                        
+  \ 'info':    ['fg', 'PreProc'],                                                          
+  \ 'border':  ['fg', 'Ignore'],                                                           
+  \ 'prompt':  ['fg', 'Conditional'],                                                      
+  \ 'pointer': ['fg', 'Exception'],                                                        
+  \ 'marker':  ['fg', 'Keyword'],                                                          
+  \ 'spinner': ['fg', 'Label'],                                                            
+  \ 'header':  ['fg', 'Comment'] } 
 
 " -----------------------------------------------------------------------------
 " Color settings
